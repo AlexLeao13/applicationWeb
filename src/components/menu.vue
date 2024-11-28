@@ -8,6 +8,9 @@
     <router-link class="menu-button" to="conferece-mois">
       Conférence du mois
     </router-link>
+    <router-link class="menu-button" to="groupes-etudes"
+      >GroupesEtudes</router-link
+    >
     <router-link class="menu-button" to="dons">Dons</router-link>
   </div>
 </template>

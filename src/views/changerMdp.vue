@@ -64,7 +64,7 @@ export default {
       token: "", // Ton token JWT ou autre moyen d'authentification
       ancienMotDePasse: "",
       nouveauMotDePasse: "",
-      confirmerMotDePasse: "",
+      confirmerMotDePasse: ""
     };
   },
   methods: {
@@ -79,13 +79,13 @@ export default {
           `${this.apiUri}/change-password`,
           {
             ancienMotDePasse: this.ancienMotDePasse,
-            nouveauMotDePasse: this.nouveauMotDePasse,
+            nouveauMotDePasse: this.nouveauMotDePasse
           },
           {
             headers: {
               Authorization: `Bearer ${this.token}`,
-              "Content-Type": "application/json",
-            },
+              "Content-Type": "application/json"
+            }
           }
         );
 
@@ -102,8 +102,8 @@ export default {
 
     goBack() {
       this.$router.go(-1); // Retour à la page précédente
-    },
-  },
+    }
+  }
 };
 </script>
 
