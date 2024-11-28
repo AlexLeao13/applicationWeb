@@ -1,5 +1,5 @@
 <template>
-  <div class="conference-mois-page">
+  <div class="groupes-etudes-page">
     <!-- Image d'arrière-plan et logo -->
     <div class="header">
       <img
@@ -15,16 +15,16 @@
 
     <!-- Contenu principal -->
     <div class="content">
-      <h1 class="title">CONFÉRENCE DU MOIS</h1>
+      <h1 class="title">GROUPE D'ÉTUDES</h1>
       <p class="subtitle">S'inscrire à :</p>
 
       <!-- Liste des boutons -->
       <div class="buttons-container">
-        <button class="btn-option" @click="goToConferenceMercredi">
-          Conférence Mercredi
+        <button class="btn-option" @click="goToGroupMercredi">
+          Groupe d'études Mercredi
         </button>
-        <button class="btn-option" @click="goToConferenceJeudi">
-          Conférence Jeudi
+        <button class="btn-option" @click="goToGroupJeudi">
+          Groupe d'études Jeudi
         </button>
       </div>
     </div>
@@ -42,25 +42,25 @@ export default {
   setup() {
     const router = useRouter();
 
-    const goToConferenceMercredi = () => {
-      router.push("/conference-mercredi");
+    const goToGroupMercredi = () => {
+      router.push({ name: "GroupMercredi" }); // Change le nom si une route spécifique est déjà définie
     };
 
-    const goToConferenceJeudi = () => {
-      router.push("/conference-jeudi");
+    const goToGroupJeudi = () => {
+      router.push({ name: "GroupJeudi" }); // Change le nom si une route spécifique est déjà définie
     };
 
     return {
-      goToConferenceMercredi,
-      goToConferenceJeudi
+      goToGroupMercredi,
+      goToGroupJeudi
     };
   }
 };
 </script>
 
 <style scoped>
-/* Styles pour la page Conférence du mois */
-.conference-mois-page {
+/* Styles pour la page Groupe d'Études */
+.groupes-etudes-page {
   display: flex;
   flex-direction: column;
   align-items: center;
