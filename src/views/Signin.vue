@@ -12,7 +12,7 @@
 
     <div class="form-container">
       <!-- Texte "Bienvenue!" centré -->
-      <h1 class="title">Bienvenue!</h1>
+      <h1 class="title">Bienveonue!</h1>
 
       <!-- Champ courriel -->
       <input
@@ -40,21 +40,22 @@
 
       <!-- Bouton retour -->
       <button class="return-button" @click="goBack">Retour</button>
+
+      <!-- Message d'erreur (affiché en cas d'erreur) -->
+      <p v-if="error" class="error-message">{{ error }}</p>
     </div>
   </div>
 </template>
 
 <script>
-import axios from "axios";
-//import AppPage from "@/components/AppPage.vue";
-//import MotDePasseOublie from "@/components/MotDePasseOublie.vue";
+import axios from "@/services/api"; // Utilisation de l'instance Axios configurée
 
 export default {
   data() {
     return {
       courriel: "",
       password: "",
-      error: null,
+      error: null // Message d'erreur pour l'utilisateur
     };
   },
   methods: {
@@ -68,27 +69,50 @@ export default {
     },
     async signin() {
       try {
-        const response = await axios.post("http://localhost:3000/login", {
-          courriel: this.courriel,
-          password: this.password,
+        let data = JSON.stringify({
+          courriel: "bob@bob.com",
+          password: "123"
         });
 
-        if (response.data && response.data.token) {
-          console.log(response.data);
+        let config = {
+          method: "post",
+          maxBodyLength: Infinity,
+          url: "http://localhost:3000/login",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          data: data
+        };
 
+        const response = await axios
+          .request(config)
+          .then((response) => {
+            console.log(JSON.stringify(response.data));
+            return response;
+          })
+          .catch((error) => {
+            console.log(error);
+            return error;
+          });
+
+        // const response = await axios.post("/login", {
+        //   courriel: this.courriel,
+        //   password: this.password
+        // });
+
+        if (response.data && response.data.token) {
           // Stockage du token et redirection
           localStorage.setItem("userToken", response.data.token);
-          this.$router.push({ name: "AppPage" });
+          this.$router.push({ name: "Accueil" }); // Redirection vers la page d'accueil
         } else {
-          alert("Erreur du courriel ou du mot de passe.");
+          this.error = "Courriel ou mot de passe incorrect.";
         }
       } catch (error) {
         console.error(error);
-        this.error = "Invalid login credentials";
-        alert("Erreur du courriel ou du mot de passe.");
+        this.error = "Une erreur s'est produite. Veuillez réessayer.";
       }
-    },
-  },
+    }
+  }
 };
 </script>
 
@@ -169,5 +193,10 @@ export default {
   color: #007bff;
   text-decoration: none;
   cursor: pointer;
+}
+
+.error-message {
+  color: red;
+  margin-top: 10px;
 }
 </style>
