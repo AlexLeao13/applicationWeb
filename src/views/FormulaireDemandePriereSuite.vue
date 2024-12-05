@@ -1,228 +1,177 @@
 <template>
-    <div class="formulaire-priere-page">
-      <!-- Header avec image et logo -->
-      <div class="header">
-        <img class="background-image" src="@/assets/images/imageArriere.png" alt="Bannière" />
-        <img class="logo" src="@/assets/images/logo.png" alt="Logo" />
-      </div>
-  
-      <h1 class="title">Demande de Prière</h1>
-  
-      <!-- Choix entre personne vivante ou décédée -->
-      <div class="choice-container">
-        <label class="label">Votre demande de prière est pour :</label>
-        <div class="buttons-container">
-          <button
-            :class="isAlive ? 'active' : ''"
-            @click="setIsAlive(true)"
-          >
-            Une personne vivante
-          </button>
-          <button
-            :class="!isAlive ? 'active' : ''"
-            @click="setIsAlive(false)"
-          >
-            Une personne décédée
-          </button>
-        </div>
-      </div>
-  
-      <!-- Formulaire principal -->
-      <form @submit.prevent="onNextTap" class="form-container">
-        <label class="label">Nom et prénom :</label>
-        <input
-          type="text"
-          class="input"
-          v-model="name"
-          placeholder="Entrez votre nom et prénom"
-          required
-        />
-  
-        <label class="label">Courriel :</label>
-        <input
-          type="email"
-          class="input"
-          v-model="courriel"
-          placeholder="Entrez votre courriel"
-          required
-        />
-  
-        <label class="label">Numéro de téléphone :</label>
-        <input
-          type="tel"
-          class="input"
-          v-model="phone"
-          placeholder="Entrez votre numéro de téléphone"
-          required
-        />
-  
-        <button type="submit" class="blue-button">Suivant</button>
-      </form>
-  
-      <button class="return-button" @click="onBack">Retour</button>
+  <div class="formulaire-priere-page">
+    <!-- Header avec image et logo -->
+    <div class="header">
+      <img class="background-image" src="@/assets/images/imageArriere.png" alt="Bannière" />
+      <img class="logo" src="@/assets/images/logo.png" alt="Logo" />
     </div>
-  </template>
-  
-  <script>
-  import axios from "axios";
-  
-  export default {
-    name: "FormulaireDemandePriere",
-    props: {
-      apiUri: String,
-      activity: Object,
+
+    <h1 class="title">Demande de Prière</h1>
+
+    <!-- Choix entre personne vivante ou décédée -->
+    <div class="choice-container">
+      <label class="label">Votre demande de prière est pour :</label>
+      <div class="buttons-container">
+        <button :class="isAlive ? 'active' : ''" @click="setIsAlive(true)">
+          Une personne vivante
+        </button>
+        <button :class="!isAlive ? 'active' : ''" @click="setIsAlive(false)">
+          Une personne décédée
+        </button>
+      </div>
+    </div>
+
+    <!-- Formulaire principal -->
+    <form @submit.prevent="onNextTap" class="form-container">
+      <label class="label">Nom et prénom :</label>
+      <input type="text" class="input" v-model="name" placeholder="Entrez votre nom et prénom" required />
+
+      <label class="label">Courriel :</label>
+      <input type="email" class="input" v-model="courriel" placeholder="Entrez votre courriel" required />
+
+      <label class="label">Numéro de téléphone :</label>
+      <input type="tel" class="input" v-model="phone" placeholder="Entrez votre numéro de téléphone" required />
+
+      <button type="submit" class="blue-button">Suivant</button>
+    </form>
+
+    <button class="return-button" @click="onBack">Retour</button>
+  </div>
+</template>
+
+<script>
+export default {
+  data() {
+    return {
+      isAlive: true, // Par défaut, demande pour une personne vivante
+      name: "",
+      courriel: "",
+      phone: "",
+    };
+  },
+  methods: {
+    setIsAlive(isAlive) {
+      this.isAlive = isAlive;
     },
-    data() {
-      return {
-        isAlive: true, // Par défaut, demande pour une personne vivante
-        name: "",
-        courriel: "",
-        phone: "",
-        usersInfos: {},
-      };
-    },
-    mounted() {
-      this.getUserInfo();
-    },
-    methods: {
-      setIsAlive(isAlive) {
-        this.isAlive = isAlive;
-      },
-      async getUserInfo() {
-        try {
-          const token = localStorage.getItem("userToken");
-          const response = await axios.get(`${this.apiUri}/userInfos`, {
-            headers: { Authorization: `Bearer ${token}` },
-          });
-          this.usersInfos = response.data;
-          this.name = `${this.usersInfos.nom || ""} ${this.usersInfos.prenom || ""}`;
-          this.courriel = this.usersInfos.courriel || "";
-          this.phone = this.usersInfos.telephone || "";
-        } catch (error) {
-          console.error("Erreur lors de la récupération des informations utilisateur :", error);
-        }
-      },
-      onNextTap() {
-        this.$router.push({
-          name: "FormulaireDemandePriere2",
-          params: {
-            apiUri: this.apiUri,
-            isAlive: this.isAlive,
-            demandeur: {
-              name: this.name,
-              courriel: this.courriel,
-              phone: this.phone,
-            },
-            activity: this.activity,
+    onNextTap() {
+      // Rediriger vers FormulaireDemandePriereSuite avec les données
+      this.$router.push({
+        name: "FormulaireDemandePriereSuite", // Utilisation du nom correct de la route
+        params: {
+          isAlive: this.isAlive,
+          demandeur: {
+            name: this.name,
+            courriel: this.courriel,
+            phone: this.phone,
           },
-        });
-      },
-      onBack() {
-        this.$router.go(-1);
-      },
+        },
+      });
     },
-  };
-  </script>
-  
-  <style scoped>
-  /* Styles de la page */
-  .formulaire-priere-page {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 20px;
-  }
-  
-  .header {
-    position: relative;
-    width: 100%;
-    height: 200px;
-  }
-  
-  .background-image {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-  
-  .logo {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    height: 70px;
-    width: 140px;
-  }
-  
-  .title {
-    font-size: 24px;
-    font-weight: bold;
-    margin-bottom: 20px;
-  }
-  
-  .choice-container {
-    text-align: center;
-    margin-bottom: 20px;
-  }
-  
-  .buttons-container button {
-    margin: 5px;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  
-  .buttons-container button.active {
-    background-color: #007bff;
-    color: white;
-  }
-  
-  .form-container {
-    width: 100%;
-    max-width: 400px;
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .label {
-    font-size: 16px;
-    margin-bottom: 5px;
-  }
-  
-  .input {
-    margin-bottom: 15px;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    width: 100%;
-  }
-  
-  .blue-button {
-    padding: 10px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  
-  .blue-button:hover {
-    background-color: #0056b3;
-  }
-  
-  .return-button {
-    margin-top: 20px;
-    padding: 10px 20px;
-    background-color: #6c757d;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  
-  .return-button:hover {
-    background-color: #5a6268;
-  }
-  </style>
-  
+    onBack() {
+      this.$router.go(-1); // Retour à la page précédente
+    },
+  },
+};
+</script>
+
+<style scoped>
+/* Styles de la page */
+.formulaire-priere-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+}
+
+.header {
+  position: relative;
+  width: 100%;
+  height: 200px;
+}
+
+.background-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.logo {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  height: 70px;
+  width: 140px;
+}
+
+.title {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.choice-container {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.buttons-container button {
+  margin: 5px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.buttons-container button.active {
+  background-color: #007bff;
+  color: white;
+}
+
+.form-container {
+  width: 100%;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+}
+
+.label {
+  font-size: 16px;
+  margin-bottom: 5px;
+}
+
+.input {
+  margin-bottom: 15px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 100%;
+}
+
+.blue-button {
+  padding: 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.blue-button:hover {
+  background-color: #0056b3;
+}
+
+.return-button {
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: #6c757d;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.return-button:hover {
+  background-color: #5a6268;
+}
+</style>

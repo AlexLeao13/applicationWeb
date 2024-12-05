@@ -20,13 +20,14 @@
 
       <!-- Liste des boutons -->
       <div class="buttons-container">
-        <button class="btn-option" @click="goToAssistanceSpirituelle">
+        <button class="btn-option" @click="goToFormulaireSansobs('Assistance spirituelle en ligne')">
           Assistance spirituelle en ligne
         </button>
-        <button class="btn-option" @click="goToAccueilPresentiel">
+        <button class="btn-option" @click="goToFormulaireSansobs('Accueil fraternel en présentiel')">
           Accueil fraternel en présentiel
         </button>
-        <button class="btn-option" @click="goToGroupeDePriere">
+        <!-- Ajoutez cette méthode pour le bouton "Groupe de prière" -->
+        <button class="btn-option" @click="goToZoomPage">
           Groupe de prière (je veux participer)
         </button>
         <button class="btn-option" @click="goToDemandePriere">
@@ -48,26 +49,30 @@ export default {
   setup() {
     const router = useRouter();
 
-    const goToAssistanceSpirituelle = () => {
-      router.push("/assistance-spirituelle");
+    const goToFormulaireSansobs = (activityTitle) => {
+      router.push({
+        name: "FormulaireSansobs",
+        params: { activity: JSON.stringify({ titre: activityTitle }) }
+      });
     };
 
-    const goToAccueilPresentiel = () => {
-      router.push("/accueil-presentiel");
-    };
-
-    const goToGroupeDePriere = () => {
-      router.push("/groupe-priere");
+    const goToZoomPage = () => {
+      // Redirection vers la page Zoom (vous pouvez passer des paramètres si nécessaire)
+      router.push("/PageZoom");
     };
 
     const goToDemandePriere = () => {
-      router.push("/demande-priere");
+      router.push({
+        name: "FormulaireDemandePriereSuite",
+        params: {
+          activity: "Demande de prière/vibration", // Exemple d'activité
+        },
+      });
     };
 
     return {
-      goToAssistanceSpirituelle,
-      goToAccueilPresentiel,
-      goToGroupeDePriere,
+      goToFormulaireSansobs,
+      goToZoomPage,  // N'oubliez pas d'ajouter goToZoomPage ici
       goToDemandePriere
     };
   }

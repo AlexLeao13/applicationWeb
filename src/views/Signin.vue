@@ -12,7 +12,7 @@
 
     <div class="form-container">
       <!-- Texte "Bienvenue!" centré -->
-      <h1 class="title">Bienveonue!</h1>
+      <h1 class="title">Bienvenue!</h1>
 
       <!-- Champ courriel -->
       <input
@@ -31,7 +31,7 @@
       />
 
       <!-- Lien "Mot de passe oublié?" -->
-      <a href="#" class="forgot-password" @click.prevent="goToMotDePasseOublie">
+      <a href="#" class="forgot-password" @click.prevent="goToMotDePassOublier">
         Mot de passe oublié?
       </a>
 
@@ -60,18 +60,17 @@ export default {
   },
   methods: {
     goBack() {
-      // Redirection ou logique de retour
-      this.$router.go(-1);
+      this.$router.go(-1); // Redirection ou logique de retour
     },
-    goToMotDePasseOublie() {
+    goToMotDePassOublier() {
       // Navigation vers la page "Mot de passe oublié"
-      this.$router.push({ name: "MotDePasseOublie" });
+      this.$router.push({ name: "MotDePassOublier" });
     },
     async signin() {
       try {
         let data = JSON.stringify({
-          courriel: "bob@bob.com",
-          password: "123"
+          courriel: this.courriel,
+          password: this.password
         });
 
         let config = {
@@ -94,11 +93,6 @@ export default {
             console.log(error);
             return error;
           });
-
-        // const response = await axios.post("/login", {
-        //   courriel: this.courriel,
-        //   password: this.password
-        // });
 
         if (response.data && response.data.token) {
           // Stockage du token et redirection
