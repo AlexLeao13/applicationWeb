@@ -95,20 +95,24 @@ export default {
 
 .form-container {
   margin: 20px;
+ text-align: center; 
+ 
 }
 
 .label {
-  margin-top: 10px;
-  display: block;
+  padding-left: 35%;
+   text-align: left;
+   display: block;
 }
 
 .input {
-  width: 100%;
+  width: 30%;
   padding: 8px;
   margin-top: 5px;
   margin-bottom: 15px;
   border: 1px solid #ccc;
   border-radius: 4px;
+  
 }
 
 .submit-button {
@@ -118,5 +122,7 @@ export default {
   border: none;
   border-radius: 4px;
   cursor: pointer;
+  display: flex;
+  margin-left: 980px; 
 }
 </style>
