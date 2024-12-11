@@ -1,4 +1,5 @@
 <template>
+
   <div class="page">
     <div class="action-bar">
       <div class="image-container">
@@ -100,6 +101,7 @@ export default {
     return {
       name: "",
       courriel: "",
+
       phone: ""
     };
   },
