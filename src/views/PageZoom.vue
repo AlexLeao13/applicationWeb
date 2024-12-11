@@ -8,7 +8,11 @@
     <main>
       <!-- Image et logo -->
       <div class="image-container">
-        <img src="@/assets/images/imageArriere.png" alt="Arrière-plan" class="image-background" />
+        <img
+          src="@/assets/images/imageArriere.png"
+          alt="Arrière-plan"
+          class="image-background"
+        />
         <img src="@/assets/images/logo.png" alt="Logo" class="image-logo" />
       </div>
 
@@ -16,7 +20,9 @@
       <section class="info-container">
         <h2 class="activity-title">{{ activity.titre }}</h2>
         <p class="activity-description">{{ activity.description }}</p>
-        <p class="instructions">Pour participer, cliquez sur le bouton ci-dessous :</p>
+        <p class="instructions">
+          Pour participer, cliquez sur le bouton ci-dessous :
+        </p>
 
         <!-- Liste des horaires -->
         <div
@@ -50,7 +56,7 @@ export default {
   props: {
     apiUri: {
       type: String,
-      default: "http://localhost:3000", // Valeur par défaut
+      default: "https://api.cesf.ca" // Valeur par défaut
     },
     activity: {
       type: Object,
@@ -58,14 +64,14 @@ export default {
         id: 1,
         titre: "Activité par défaut",
         description: "Description de l'activité par défaut.",
-        lien_zoom: "https://zoom.us",
-      }),
-    },
+        lien_zoom: "https://zoom.us"
+      })
+    }
   },
   data() {
     return {
       token: localStorage.getItem("userToken") || "",
-      schedules: [], // Liste des horaires
+      schedules: [] // Liste des horaires
     };
   },
   mounted() {
@@ -80,8 +86,8 @@ export default {
       axios
         .get(`${this.apiUri}/activity-schedules?activity_id=${activity_id}`, {
           headers: {
-            Authorization: `Bearer ${this.token}`,
-          },
+            Authorization: `Bearer ${this.token}`
+          }
         })
         .then((response) => {
           this.schedules = response.data;
@@ -97,8 +103,8 @@ export default {
     },
     onBack() {
       this.$router.back(); // Retour à la page précédente
-    },
-  },
+    }
+  }
 };
 </script>
 

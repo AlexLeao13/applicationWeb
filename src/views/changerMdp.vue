@@ -60,7 +60,7 @@ export default {
   name: "ChangerMdp",
   data() {
     return {
-      apiUri: "http://localhost:3000", // Change cette URL si nécessaire
+      apiUri: "https://api.cesf.ca", // Change cette URL si nécessaire
       token: "", // Ton token JWT ou autre moyen d'authentification
       ancienMotDePasse: "",
       nouveauMotDePasse: "",

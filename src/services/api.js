@@ -5,7 +5,7 @@ axios.defaults.headers.common["Content-Type"] =
   "application/x-www-form-urlencoded";
 axios.defaults.headers.common["Access-Control-Allow-Origin"] = "*";
 const api = axios.create({
-  baseURL: "http://localhost:3000", // URL du backend
+  baseURL: "https://api.cesf.ca", // URL du backend
   timeout: 5000 // Timeout de 5 secondes pour les requêtes
 });
 

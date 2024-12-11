@@ -70,7 +70,7 @@ export default {
       }
 
       try {
-        const response = await axios.post("http://localhost:3000/register", {
+        const response = await axios.post("https://api.cesf.ca/register", {
           prenom: this.prenom,
           nom: this.nom,
           courriel: this.courriel,

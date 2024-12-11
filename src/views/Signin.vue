@@ -76,7 +76,7 @@ export default {
         let config = {
           method: "post",
           maxBodyLength: Infinity,
-          url: "http://localhost:3000/login",
+          url: "https://api.cesf.ca/login",
           headers: {
             "Content-Type": "application/json"
           },
