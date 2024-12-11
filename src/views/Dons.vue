@@ -19,11 +19,7 @@
       <p class="description">Cliquez sur le lien suivant pour faire un don :</p>
 
       <!-- Lien pour faire un don -->
-      <a
-        href="https://www.votre-lien-de-don.com"
-        target="_blank"
-        class="don-link"
-      >
+      <a href="https://www.cesf.ca/dons" target="_blank" class="don-link">
         Faire un don
       </a>
     </div>

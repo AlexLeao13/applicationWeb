@@ -24,18 +24,21 @@
 </template>
 
 <script>
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
 import { useRouter } from "vue-router";
 
 export default {
   setup() {
     const router = useRouter();
-    const userToken = ref(localStorage.getItem("userToken"));
+    const userToken = ref(null);
 
-    // Vérifie si un utilisateur est déjà connecté
-    if (userToken.value) {
-      router.push({ name: "AppPage" });
-    }
+    onMounted(() => {
+      // Vérifie si un utilisateur est déjà connecté
+      userToken.value = localStorage.getItem("userToken");
+      if (userToken.value) {
+        router.push({ name: "Accueil" }); // Redirection vers Accueil si connecté
+      }
+    });
 
     // Méthode pour naviguer vers la page de création de compte
     const goToCreateAccount = () => {
@@ -49,9 +52,9 @@ export default {
 
     return {
       goToCreateAccount,
-      goToSignin,
+      goToSignin
     };
-  },
+  }
 };
 </script>
 
@@ -61,7 +64,9 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
+  min-height: 100vh;
+  background-color: #f9f9f9;
 }
 
 .header {
@@ -79,7 +84,7 @@ export default {
 .logo {
   position: absolute;
   top: 20%;
-  left: 15%;
+  left: 10%;
   transform: translate(-50%, -50%);
   height: 70px;
   width: 140px;
@@ -95,6 +100,7 @@ export default {
 .title {
   font-size: 24px;
   margin-bottom: 20px;
+  color: #333;
 }
 
 .btn-ok {

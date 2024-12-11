@@ -37,7 +37,7 @@
       />
 
       <!-- Affichage d'erreur si nécessaire -->
-      <p v-if="error" class="error">{{ error }}</p>
+      <p v-if="error" class="error-message">{{ error }}</p>
 
       <!-- Bouton d'inscription -->
       <button class="btn-ok" @click="signUp">S'inscrire</button>
@@ -50,7 +50,6 @@
 
 <script>
 import axios from "axios";
-import SigninVue from "@/views/signin.vue";
 
 export default {
   data() {
@@ -60,11 +59,10 @@ export default {
       courriel: "",
       password: "",
       confirmPassword: "",
-      error: null,
+      error: null // Message d'erreur
     };
   },
   methods: {
-    // Méthode pour créer un compte
     async signUp() {
       if (this.password !== this.confirmPassword) {
         this.error = "Les mots de passe ne correspondent pas.";
@@ -76,31 +74,28 @@ export default {
           prenom: this.prenom,
           nom: this.nom,
           courriel: this.courriel,
-          password: this.password,
+          password: this.password
         });
 
         if (response.status === 201) {
-          // Redirection vers la page de connexion après succès
           this.$router.push({ name: "Signin" });
         } else {
-          this.error = "Erreur lors de l'inscription.";
+          this.error = "Erreur lors de l'inscription. Veuillez réessayer.";
         }
       } catch (error) {
         console.error(error);
-        this.error = "Erreur lors de l'inscription.";
+        this.error = "Une erreur s'est produite. Veuillez réessayer.";
       }
     },
-
-    // Retour à la page précédente
     goBack() {
       this.$router.go(-1);
-    },
-  },
+    }
+  }
 };
 </script>
 
 <style scoped>
-/* Styles de la page */
+/* Styles adaptés pour le formulaire */
 .create-account-page {
   display: flex;
   flex-direction: column;
@@ -149,13 +144,6 @@ export default {
   border-radius: 5px;
 }
 
-.error {
-  color: red;
-  font-size: 14px;
-  margin-bottom: 15px;
-  text-align: center;
-}
-
 .btn-ok {
   width: 100%;
   padding: 10px;
@@ -174,6 +162,11 @@ export default {
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  margin-top: 10px;
+}
+
+.error-message {
+  color: red;
   margin-top: 10px;
 }
 </style>

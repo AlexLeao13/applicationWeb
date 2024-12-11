@@ -30,6 +30,13 @@
         alt="Accueil Fraternel"
         class="decorative-image"
       />
+
+      <!-- Nouveau bouton -->
+      <div class="library-button-container">
+        <button class="library-button" @click="goToLibrary">
+          ACCÉDER À LA BIBLIOTHÈQUE
+        </button>
+      </div>
     </div>
   </div>
 </template>
@@ -45,22 +52,16 @@ export default {
   setup() {
     const router = useRouter();
 
-    const goToAccueilFraternel = () => {
-      router.push({ name: "AccueilFraternel" });
-    };
-
-    const goToConferences = () => {
-      router.push({ name: "Conferences" });
-    };
-
-    const goToDons = () => {
-      router.push({ name: "Dons" });
+    // Redirection vers la bibliothèque
+    const goToLibrary = () => {
+      window.open(
+        "https://docs.google.com/spreadsheets/d/1SPBcpodJeG_eu2z1BGxCp_OuRb5ZbQNt3QNy4GKynew/edit?gid=249589814#gid=249589814",
+        "_blank"
+      ); // Remplace par l'URL réelle
     };
 
     return {
-      goToAccueilFraternel,
-      goToConferences,
-      goToDons
+      goToLibrary
     };
   }
 };
@@ -119,5 +120,23 @@ export default {
   max-width: 600px;
   height: auto;
   margin-top: 20px;
+}
+
+.library-button-container {
+  margin-top: 20px;
+}
+
+.library-button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.library-button:hover {
+  background-color: #0056b3;
 }
 </style>
