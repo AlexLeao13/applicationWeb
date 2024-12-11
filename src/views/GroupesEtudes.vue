@@ -26,6 +26,9 @@
         <button class="btn-option" @click="goToGroupJeudi">
           Groupe d'études Jeudi
         </button>
+        <button class="btn-option" @click="goToGroupSamedi">
+          Groupe d'études Samedi
+        </button>
       </div>
     </div>
   </div>
@@ -43,16 +46,21 @@ export default {
     const router = useRouter();
 
     const goToGroupMercredi = () => {
-      router.push({ name: "GroupMercredi" }); // Change le nom si une route spécifique est déjà définie
+      router.push({ name: "GroupMercredi" });
     };
 
     const goToGroupJeudi = () => {
-      router.push({ name: "GroupJeudi" }); // Change le nom si une route spécifique est déjà définie
+      router.push({ name: "GroupJeudi" });
+    };
+
+    const goToGroupSamedi = () => {
+      router.push({ name: "GroupSamedi" });
     };
 
     return {
       goToGroupMercredi,
-      goToGroupJeudi
+      goToGroupJeudi,
+      goToGroupSamedi
     };
   }
 };

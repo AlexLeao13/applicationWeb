@@ -1,86 +1,122 @@
 import { createRouter, createWebHistory } from "vue-router";
-import Home from "../views/Home.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
+    //{
+    //  path: "/",
+    //  redirect: "/home"
+    //},
     {
       path: "/",
-      name: "home",
-      component: Home
+      name: "Home",
+      component: () => import("../views/Home.vue")
     },
     {
       path: "/signin",
       name: "Signin",
-      // route level code-splitting
-      // this generates a separate chunk (About.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
       component: () => import("../views/Signin.vue")
     },
     {
       path: "/create-account",
       name: "CreateAccount",
-      // route level code-splitting
-      // this generates a separate chunk (About.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
       component: () => import("../views/CreateAccount.vue")
-    },
-    {
-      path: "/",
-      name: "Home",
-      // route level code-splitting
-      // this generates a separate chunk (About.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import("../views/Home.vue")
     },
     {
       path: "/accueil",
       name: "Accueil",
-      // route level code-splitting
-      // this generates a separate chunk (About.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
       component: () => import("../views/Accueil.vue")
     },
-
     {
       path: "/accueil-fraternel",
       name: "AccueilFraternel",
-      // route level code-splitting
-      // this generates a separate chunk (About.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
       component: () => import("../views/AccueilFraternel.vue")
     },
     {
       path: "/conferece-mois",
       name: "ConferenceMois",
-      // route level code-splitting
-      // this generates a separate chunk (About.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
       component: () => import("../views/ConferenceMois.vue")
     },
     {
       path: "/changer-mdp",
       name: "changerMdp",
-      // route level code-splitting
-      // this generates a separate chunk (About.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
       component: () => import("../views/changerMdp.vue")
     },
     {
       path: "/groupes-etudes",
       name: "GroupesEtudes",
-      // route level code-splitting
-      // this generates a separate chunk (About.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
       component: () => import("../views/GroupesEtudes.vue")
     },
     {
       path: "/dons",
       name: "Dons",
-      // route level code-splitting
-      // this generates a separate chunk (About.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
       component: () => import("../views/Dons.vue")
+    },
+    {
+      path: "/formulaire/:jour",
+      name: "FormulaireSansobs",
+      component: () => import("../views/FormulaireSansobs.vue"),
+      props: true
+    },
+    {
+      path: "/conference-mercredi",
+      name: "ConferenceMercredi",
+      component: () => import("../views/FormulaireSansobs.vue"),
+      props: {
+        jour: "Mercredi",
+        langue: "Portugais",
+        mode: "En ligne et présentiel",
+        typeActivite: "Conférence",
+        showAddress: true
+      }
+    },
+    {
+      path: "/conference-samedi",
+      name: "ConferenceSamedi",
+      component: () => import("../views/FormulaireSansobs.vue"),
+      props: {
+        jour: "Samedi",
+        langue: "Français",
+        mode: "En ligne",
+        typeActivite: "Conférence",
+        showAddress: false
+      }
+    },
+    {
+      path: "/group-mercredi",
+      name: "GroupMercredi",
+      component: () => import("../views/FormulaireSansobs.vue"),
+      props: {
+        jour: "Mercredi",
+        langue: "Portugais",
+        mode: "En ligne et présentiel",
+        typeActivite: "Groupe d'étude",
+        showAddress: true
+      }
+    },
+    {
+      path: "/group-jeudi",
+      name: "GroupJeudi",
+      component: () => import("../views/FormulaireSansobs.vue"),
+      props: {
+        jour: "Jeudi",
+        langue: "Portugais",
+        mode: "En ligne",
+        typeActivite: "Groupe d'étude",
+        showAddress: false
+      }
+    },
+    {
+      path: "/group-samedi",
+      name: "GroupSamedi",
+      component: () => import("../views/FormulaireSansobs.vue"),
+      props: {
+        jour: "Samedi",
+        langue: "Français",
+        mode: "En ligne",
+        typeActivite: "Groupe d'étude",
+        showAddress: false
+      }
     }
   ]
 });

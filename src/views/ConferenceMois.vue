@@ -23,8 +23,8 @@
         <button class="btn-option" @click="goToConferenceMercredi">
           Conférence Mercredi
         </button>
-        <button class="btn-option" @click="goToConferenceJeudi">
-          Conférence Jeudi
+        <button class="btn-option" @click="goToConferenceSamedi">
+          Conférence Samedi
         </button>
       </div>
     </div>
@@ -43,16 +43,16 @@ export default {
     const router = useRouter();
 
     const goToConferenceMercredi = () => {
-      router.push("/conference-mercredi");
+      router.push({ name: "ConferenceMercredi" });
     };
 
-    const goToConferenceJeudi = () => {
-      router.push("/conference-jeudi");
+    const goToConferenceSamedi = () => {
+      router.push({ name: "ConferenceSamedi" });
     };
 
     return {
       goToConferenceMercredi,
-      goToConferenceJeudi
+      goToConferenceSamedi
     };
   }
 };
