@@ -14,14 +14,16 @@
 
     <!-- Contenu principal -->
     <div class="content">
-      <h1 class="title">Bienvenue dans le système d'assistance CESF</h1>
+      <h1 class="title">
+        {{ $t("Bienvenue dans le système d'assistance CESF") }}
+      </h1>
 
       <p class="description">
-        Le système d'assistance CESF a été créé pour faciliter l'accès à nos
-        membres et au public externe pour les conférences et accompagnements
-        fraternels. Vous pouvez vous inscrire à nos événements directement
-        depuis chez vous. Nous espérons que vous profiterez pleinement de notre
-        système.
+        {{
+          $t(
+            "Le système d'assistance CESF a été créé pour faciliter l'accès à nos membres et au public externe pour les conférences et accompagnements fraternels. Vous pouvez vous inscrire à nos événements directement depuis chez vous. Nous espérons que vous profiterez pleinement de notre système."
+          )
+        }}
       </p>
 
       <!-- Image décorative -->
@@ -34,7 +36,7 @@
       <!-- Nouveau bouton -->
       <div class="library-button-container">
         <button class="library-button" @click="goToLibrary">
-          ACCÉDER À LA BIBLIOTHÈQUE
+          {{ $t("ACCÉDER À LA BIBLIOTHÈQUE") }}
         </button>
       </div>
     </div>

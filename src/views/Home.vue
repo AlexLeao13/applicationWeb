@@ -12,13 +12,17 @@
 
     <div class="content">
       <!-- Titre de la page -->
-      <h1 class="title">Bienvenue sur l'Application</h1>
 
+      <h1 class="title">{{ $t("Bienvenue dans notre application !") }}</h1>
       <!-- Bouton pour s'inscrire -->
-      <button class="btn-ok" @click="goToCreateAccount">S'inscrire</button>
+      <button class="btn-ok" @click="goToCreateAccount">
+        {{ $t("S'inscrire") }}
+      </button>
 
       <!-- Bouton pour se connecter -->
-      <button class="btn-ok" @click="goToSignin">Se connecter</button>
+      <button class="btn-ok" @click="goToSignin">
+        {{ $t("Se connecter") }}
+      </button>
     </div>
   </div>
 </template>
