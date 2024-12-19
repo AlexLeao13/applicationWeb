@@ -2,15 +2,15 @@
   <!-- Menu horizontal -->
   <div class="menu">
     <router-link class="menu-button" to="accueil">Accueil </router-link>
-    <router-link class="menu-button" to="accueil-fraternel">
-      Accueil Fraternel
-    </router-link>
-    <router-link class="menu-button" to="conferece-mois">
-      Conférence du mois
-    </router-link>
-    <router-link class="menu-button" to="groupes-etudes">
-      GroupesEtudes
-    </router-link>
+    <router-link class="menu-button" to="accueil-fraternel"
+      >Accueil Fraternel</router-link
+    >
+    <router-link class="menu-button" to="conference-mois"
+      >Conférence du mois</router-link
+    >
+    <router-link class="menu-button" to="groupes-etudes"
+      >GroupesEtudes</router-link
+    >
     <router-link class="menu-button" to="dons">Dons</router-link>
   </div>
 </template>
