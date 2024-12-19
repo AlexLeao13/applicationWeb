@@ -20,18 +20,20 @@
 
       <!-- Liste des boutons -->
       <div class="buttons-container">
-        <button class="btn-option" @click="goToFormulaireSansobs('Assistance spirituelle en ligne')">
-          Assistance spirituelle en ligne
+        <button class="btn-option" @click="goToAssistanceSpirituelle">
+          Assistance Spirituelle en Ligne
         </button>
-        <button class="btn-option" @click="goToFormulaireSansobs('Accueil fraternel en présentiel')">
-          Accueil fraternel en présentiel
+
+        <button class="btn-option" @click="goToAccueilFraternel">
+          Accueil Fraternel en Présentiel
         </button>
-        <!-- Ajoutez cette méthode pour le bouton "Groupe de prière" -->
+
         <button class="btn-option" @click="goToZoomPage">
-          Groupe de prière (je veux participer)
+          Groupe de Prière (je veux participer)
         </button>
+
         <button class="btn-option" @click="goToDemandePriere">
-          Demande de prière/vibration
+          Demande de Prière/Vibration
         </button>
       </div>
     </div>
@@ -49,15 +51,15 @@ export default {
   setup() {
     const router = useRouter();
 
-    const goToFormulaireSansobs = (activityTitle) => {
-      router.push({
-        name: "FormulaireSansobs",
-        params: { activity: JSON.stringify({ titre: activityTitle }) }
-      });
+    const goToAssistanceSpirituelle = () => {
+      router.push({ name: "FormAssistanceSpirituelle" });
+    };
+
+    const goToAccueilFraternel = () => {
+      router.push({ name: "FormAccueilFraternel" });
     };
 
     const goToZoomPage = () => {
-      // Redirection vers la page Zoom (vous pouvez passer des paramètres si nécessaire)
       router.push("/PageZoom");
     };
 
@@ -65,14 +67,15 @@ export default {
       router.push({
         name: "FormulaireDemandePriereSuite",
         params: {
-          activity: "Demande de prière/vibration", // Exemple d'activité
-        },
+          activity: "Demande de prière/vibration"
+        }
       });
     };
 
     return {
-      goToFormulaireSansobs,
-      goToZoomPage,  // N'oubliez pas d'ajouter goToZoomPage ici
+      goToAssistanceSpirituelle,
+      goToAccueilFraternel,
+      goToZoomPage,
       goToDemandePriere
     };
   }

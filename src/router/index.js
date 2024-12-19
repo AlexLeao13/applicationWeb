@@ -168,6 +168,33 @@ const routes = [
   {
     path: "/:pathMatch(.*)*",
     redirect: "/fr" // Redirige vers la langue et la route par défaut
+  },
+
+  // Routes pour le formulaire d'assistance spirituelle
+  {
+    path: "/:lang/assistance-spirituelle",
+    name: "FormAssistanceSpirituelle",
+    component: () => import("../views/FormAssistanceSpirituelle.vue"),
+    beforeEnter: validateLang
+  },
+
+  {
+    path: "/:lang/form-accueil-fraternel",
+    name: "FormAccueilFraternel",
+    component: () => import("../views/FormAccueilFraternel.vue"),
+    beforeEnter: validateLang
+  },
+  {
+    path: "/:lang/form-groupe-priere",
+    name: "FormGroupePriere",
+    component: () => import("../views/FormGroupePriere.vue"),
+    beforeEnter: validateLang
+  },
+  {
+    path: "/:lang/form-demande-priere",
+    name: "FormDemandePriere",
+    component: () => import("../views/FormDemandePriere.vue"),
+    beforeEnter: validateLang
   }
 ];
 
