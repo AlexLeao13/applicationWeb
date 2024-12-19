@@ -176,26 +176,26 @@ const routes = [
     name: "FormAssistanceSpirituelle",
     component: () => import("../views/FormAssistanceSpirituelle.vue"),
     beforeEnter: validateLang
-  },
-
-  {
-    path: "/:lang/form-accueil-fraternel",
-    name: "FormAccueilFraternel",
-    component: () => import("../views/FormAccueilFraternel.vue"),
-    beforeEnter: validateLang
-  },
-  {
-    path: "/:lang/form-groupe-priere",
-    name: "FormGroupePriere",
-    component: () => import("../views/FormGroupePriere.vue"),
-    beforeEnter: validateLang
-  },
-  {
-    path: "/:lang/form-demande-priere",
-    name: "FormDemandePriere",
-    component: () => import("../views/FormDemandePriere.vue"),
-    beforeEnter: validateLang
   }
+
+  // {
+  //   path: "/:lang/form-accueil-fraternel",
+  //   name: "FormAccueilFraternel",
+  //   component: () => import("../views/FormAccueilFraternel.vue"),
+  //   beforeEnter: validateLang
+  // },
+  // {
+  //   path: "/:lang/form-groupe-priere",
+  //   name: "FormGroupePriere",
+  //   component: () => import("../views/FormGroupePriere.vue"),
+  //   beforeEnter: validateLang
+  // },
+  // {
+  //   path: "/:lang/form-demande-priere",
+  //   name: "FormDemandePriere",
+  //   component: () => import("../views/FormDemandePriere.vue"),
+  //   beforeEnter: validateLang
+  // }
 ];
 
 const router = createRouter({
