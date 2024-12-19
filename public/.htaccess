@@ -1,6 +1,5 @@
 <IfModule mod_rewrite.c>
-  RewriteEngine On RewriteBase /subdirectoryName RewriteRule
-  ^subdirectoryName/index\.html$ - [L] RewriteCond %{REQUEST_FILENAME} !-f
-  RewriteCond %{REQUEST_FILENAME} !-d RewriteRule . /subdirectoryName/index.html
-  [L]
+  RewriteEngine On # Redirect all requests to the index.html, except for actual
+  files or directories RewriteCond %{REQUEST_FILENAME} !-f RewriteCond
+  %{REQUEST_FILENAME} !-d RewriteRule ^ /index.html [L]
 </IfModule>
