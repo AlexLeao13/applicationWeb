@@ -8,7 +8,7 @@
           alt="Image d'arrière-plan"
           class="image-background"
         />
-        <img src="@/assets/images/logo.png" alt="Logo" class="image-avant" />
+        <img src="@/assets/images/logo.png" alt="Logo" class="logo" />
       </div>
     </div>
 
@@ -141,13 +141,13 @@ export default {
   object-fit: cover;
 }
 
-.image-avant {
+.logo {
   position: absolute;
-  top: 50%;
-  left: 50%;
+  top: 20%;
+  left: 10%;
   transform: translate(-50%, -50%);
-  width: 140px;
   height: 70px;
+  width: 140px;
 }
 
 /* Conteneur formulaire */

@@ -69,15 +69,15 @@ const routes = [
     beforeEnter: validateLang
   },
   {
-    path: "/:lang/formulaire-demande-priere",
-    name: "FormulaireDemandePriere",
-    component: () => import("../views/FormulaireDemandePriere.vue"),
+    path: "/:lang/form-demande-priere",
+    name: "FormDemandePriere",
+    component: () => import("../views/FormDemandePriere.vue"),
     beforeEnter: validateLang
   },
   {
-    path: "/:lang/formulaire-demande-priere-suite",
-    name: "FormulaireDemandePriereSuite",
-    component: () => import("../views/FormulaireDemandePriereSuite.vue"),
+    path: "/:lang/form-demande-priere-suite",
+    name: "FormDemandePriereSuite",
+    component: () => import("../views/FormDemandePriereSuite.vue"),
     beforeEnter: validateLang
   },
   {
@@ -182,26 +182,38 @@ const routes = [
     name: "FormAssistanceSpirituelle",
     component: () => import("../views/FormAssistanceSpirituelle.vue"),
     beforeEnter: validateLang
+  },
+  
+  // Routes pour le formulaire d'accueil fraternel
+  {
+    path: "/:lang/form-accueil-fraternel",
+    name: "FormAccueilFraternel",
+    component: () => import("../views/FormAccueilFraternel.vue"),
+    beforeEnter: validateLang
+  },
+  {
+    path: "/:lang/form-groupe-priere",
+    name: "FormGroupePriere",
+    component: () => import("../views/FormGroupePriere.vue"),
+    beforeEnter: validateLang
+  },
+  {
+    path: "/:lang/form-demande-priere",
+    name: "FormDemandePriere",
+    component: () => import("../views/FormDemandePriere.vue"),
+    beforeEnter: validateLang
+  },
+  {
+    path: "/:lang/form-demande-priere-suite",
+    name: "FormDemandePriereSuite",
+    component: () => import("../views/FormDemandePriereSuite.vue"),
+    props: (route) => ({
+      isAlive: route.query.isAlive === 'true', // Convert query string to Boolean
+      demandeur: JSON.parse(route.query.demandeur)
+    }),
+    beforeEnter: validateLang
   }
-
-  // {
-  //   path: "/:lang/form-accueil-fraternel",
-  //   name: "FormAccueilFraternel",
-  //   component: () => import("../views/FormAccueilFraternel.vue"),
-  //   beforeEnter: validateLang
-  // },
-  // {
-  //   path: "/:lang/form-groupe-priere",
-  //   name: "FormGroupePriere",
-  //   component: () => import("../views/FormGroupePriere.vue"),
-  //   beforeEnter: validateLang
-  // },
-  // {
-  //   path: "/:lang/form-demande-priere",
-  //   name: "FormDemandePriere",
-  //   component: () => import("../views/FormDemandePriere.vue"),
-  //   beforeEnter: validateLang
-  // }
+  
 ];
 
 const router = createRouter({

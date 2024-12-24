@@ -13,14 +13,14 @@
       <label class="label">Votre demande de prière est pour :</label>
       <div class="buttons-container">
         <button :class="isAlive ? 'active' : ''" @click="setIsAlive(true)">
-          Une personne vivante
+          Personne vivante
         </button>
         <button :class="!isAlive ? 'active' : ''" @click="setIsAlive(false)">
-          Une personne décédée
+          Personne décédée
         </button>
       </div>
     </div>
-
+    <h5 class="title2">Informations du demandeur</h5>
     <!-- Formulaire principal -->
     <form @submit.prevent="onNextTap" class="form-container">
       <label class="label">Nom et prénom :</label>
@@ -32,9 +32,9 @@
       <label class="label">Numéro de téléphone :</label>
       <input type="tel" class="input" v-model="phone" placeholder="Entrez votre numéro de téléphone" required />
 
-      <button type="submit" class="blue-button">Suivant</button>
+      
     </form>
-
+    <button type="submit" class="suivant-button">Suivant</button>
     <button class="return-button" @click="onBack">Retour</button>
   </div>
 </template>
@@ -97,8 +97,8 @@ export default {
 
 .logo {
   position: absolute;
-  top: 50%;
-  left: 50%;
+  top: 20%;
+  left: 10%;
   transform: translate(-50%, -50%);
   height: 70px;
   width: 140px;
@@ -109,6 +109,13 @@ export default {
   font-weight: bold;
   margin-bottom: 20px;
 }
+
+.title2 {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
 
 .choice-container {
   text-align: center;
@@ -148,8 +155,22 @@ export default {
   width: 100%;
 }
 
-.blue-button {
-  padding: 10px;
+.suivant-button {
+  padding: 10px 20px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.suivant-button:hover {
+  background-color: #218838;
+}
+
+.return-button {
+  margin-top: 20px;
+  padding: 10px 20px;
   background-color: #007bff;
   color: white;
   border: none;
@@ -157,21 +178,7 @@ export default {
   cursor: pointer;
 }
 
-.blue-button:hover {
-  background-color: #0056b3;
-}
-
-.return-button {
-  margin-top: 20px;
-  padding: 10px 20px;
-  background-color: #6c757d;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
 .return-button:hover {
-  background-color: #5a6268;
+  background-color: #0056b3;
 }
 </style>

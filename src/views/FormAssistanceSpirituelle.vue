@@ -1,5 +1,5 @@
 <template>
-  <div class="page">
+  <div class="form-page">
     <!-- Barre d'action et arrière-plan -->
     <div class="action-bar">
       <div class="image-container">
@@ -8,143 +8,204 @@
           alt="Image d'arrière-plan"
           class="image-background"
         />
-        <img src="@/assets/images/logo.png" alt="Logo" class="image-avant" />
+        <img src="@/assets/images/logo.png" alt="Logo" class="logo" />
       </div>
     </div>
-
+å
     <!-- Conteneur du formulaire -->
     <div class="form-container">
       <h1 class="title">Formulaire</h1>
-      <form @submit.prevent="soumettreFormulaire">
-        <div class="form-group">
-          <label class="label">Nom complet :</label>
-          <input
-            v-model="name"
-            type="text"
-            class="input"
-            placeholder="Entrez votre nom complet"
-            required
-          />
-        </div>
-        <div class="form-group">
-          <label class="label">Adresse e-mail :</label>
-          <input
-            v-model="email"
-            type="email"
-            class="input"
-            placeholder="Entrez votre adresse e-mail"
-            required
-          />
-        </div>
-        <div class="form-group">
-          <label class="label">Téléphone :</label>
-          <input
-            v-model="phone"
-            type="tel"
-            class="input"
-            placeholder="Entrez votre numéro de téléphone"
-          />
-        </div>
-        <div class="form-group">
-          <label class="label">Décrivez votre problème :</label>
-          <textarea
-            v-model="problem"
-            class="textarea"
-            placeholder="Décrivez votre problème ici..."
-            required
-          ></textarea>
-        </div>
-        <button type="submit" class="submit-button">Soumettre</button>
-      </form>
-    </div>
-  </div>
+
+      <!-- Contenu du formulaire -->
+      <div class="form-group">
+        <label class="label">Nom complet :</label>
+        <input
+          v-model="name"
+          class="input"
+          type="text"
+          placeholder="Entrez votre nom complet"
+          required
+        />
+      </div>
+      <div class="form-group">
+        <label class="label">Adresse e-mail :</label>
+        <input
+          v-model="email"
+          class="input"
+          type="email"
+          placeholder="Entrez votre adresse e-mail"
+          required
+        />
+      </div>
+      <div class="form-group">
+        <label class="label">Téléphone :</label>
+        <input
+          v-model="phone"
+          class="input"
+          type="tel"
+          placeholder="Entrez votre numéro de téléphone"
+          required
+        />
+      </div>
+      <div class="form-group">
+        <label class="label">Décrivez votre problème :</label>
+        <textarea
+          v-model="problem"
+          class="textarea"
+          placeholder="Décrivez brièvement votre problème"
+          required
+        ></textarea>
+      </div>
+
+      <!-- Boutons -->
+      <div class="button-container">
+        <button class="submit-button" @click="submitForm">Soumettre</button>
+      </div>
+      <div>
+        <button class="return-button" @click="onBack">Retour</button>
+      </div>
+    </div> 
+  </div> 
 </template>
 
 <script>
 export default {
-  name: "FormAssistanceSpirituelle",
   data() {
     return {
       name: "",
       email: "",
       phone: "",
-      problem: ""
+      problem: "",
     };
   },
   methods: {
-    soumettreFormulaire() {
-      console.log("Formulaire soumis :", {
-        name: this.name,
-        email: this.email,
-        phone: this.phone,
-        problem: this.problem
-      });
-      alert("Votre formulaire a été soumis avec succès !");
-    }
-  }
+    submitForm() {
+      // Logique pour soumettre le formulaire
+      alert("Formulaire soumis avec succès !");
+    },
+    onBack() {
+      this.$router.back();
+    },
+  },
 };
 </script>
 
 <style scoped>
-/* Styles similaires aux autres formulaires */
-.page {
-  display: block;
-  background-color: #f9f9f9;
+/* Styles généraux */
+.form-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   padding: 20px;
+  background-color: #f9f9f9;
   font-family: Arial, sans-serif;
 }
-.action-bar .image-container {
+
+.action-bar {
+  width: 100%;
+  position: relative;
+}
+
+.image-container {
   position: relative;
   height: 200px;
   width: 100%;
 }
+
 .image-background {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
-.image-avant {
+
+.logo {
   position: absolute;
-  top: 50%;
-  left: 50%;
+  top: 20%;
+  left: 10%;
   transform: translate(-50%, -50%);
-  width: 140px;
   height: 70px;
+  width: 140px;
 }
+
+/* Conteneur formulaire */
 .form-container {
-  margin: 20px auto;
+  width: 100%;
   max-width: 600px;
-  background-color: #ffffff;
-  border-radius: 8px;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  background: white;
   padding: 20px;
-  color: black;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
+
+.title {
+  text-align: center;
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  color: #003366;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
 .label {
-  margin-bottom: 10px;
+  display: block;
+  margin-bottom: 5px;
   font-weight: bold;
   color: #333;
 }
+
 .input,
 .textarea {
   width: 100%;
-  margin-bottom: 20px;
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
 }
+
 .textarea {
-  height: 100px;
+  height: 80px;
+  resize: none;
 }
+
+/* Boutons */
+.button-container {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
 .submit-button {
   padding: 10px 20px;
-  background-color: #28a745;
+  font-size: 16px;
+  font-weight: bold;
   color: #fff;
+  background-color: #28a745;
   border: none;
   border-radius: 5px;
   cursor: pointer;
 }
+
 .submit-button:hover {
   background-color: #218838;
+}
+
+/* Bouton retour */
+.return-button {
+  display: block;
+  margin: 20px auto 0; /* Ajoute un espace au-dessus et centre horizontalement */
+  padding: 10px 20px; /* Ajuste la taille pour correspondre à un bouton distinct */
+  color: #fff;
+  background-color: #007bff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  text-align: center;
+}
+
+
+.return-button:hover {
+  background-color: #0056b3;
 }
 </style>
