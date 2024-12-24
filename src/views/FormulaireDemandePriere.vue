@@ -1,68 +1,103 @@
 <template>
-  <div class="formulaire-page">
-    <!-- Bannière ou logo -->
+  <div class="formulaire-priere-suite-page">
+    <!-- Header avec image et logo -->
     <div class="header">
       <img class="background-image" src="@/assets/images/imageArriere.png" alt="Bannière" />
       <img class="logo" src="@/assets/images/logo.png" alt="Logo" />
     </div>
 
-    <!-- Titre principal -->
     <h1 class="title">Demande de Prière</h1>
-    <h1 class="title">Bénéficiaire</h1>
 
-    <!-- Formulaire -->
+    <!-- Section des informations du bénéficiaire -->
     <div class="form-container">
-      <label for="name" class="form-label">Nom et prénom :</label>
-      <input id="name" type="text" v-model="name" class="form-input" placeholder="Nom et prénom" />
+      <h2 class="section-title">Informations du Bénéficiaire</h2>
 
-      <label for="adresse" class="form-label">Adresse complète :</label>
-      <input id="adresse" type="text" v-model="adresse" class="form-input" placeholder="Adresse complète" />
+      <!-- Champs communs -->
+      <label class="label">Nom et prénom :</label>
+      <input
+        type="text"
+        class="input"
+        v-model="beneficiaire.nom"
+        placeholder="Entrez le nom et prénom"
+        required
+      />
 
-      <label for="reason" class="form-label">Décrivez votre problème :</label>
-      <textarea id="reason" v-model="reason" class="form-textarea" placeholder="Raison de la prière"></textarea>
+      <label class="label">Adresse :</label>
+      <input
+        type="text"
+        class="input"
+        v-model="beneficiaire.adresse"
+        placeholder="Entrez l'adresse"
+        required
+      />
 
-      <button class="form-button" @click="onSubmit">Envoyer</button>
-      <button class="whatsapp-button" @click="openWhatsAppGroup">Rejoindre le groupe WhatsApp</button>
-      <button class="return-button" @click="onBack">Retour</button>
+      <!-- Champ spécifique pour Personne vivante -->
+      <div v-if="isAlive">
+        <label class="label">Décrivez le motif :</label>
+        <textarea
+          class="textarea"
+          v-model="beneficiaire.motif"
+          placeholder="Décrivez brièvement le motif"
+          required
+        ></textarea>
+      </div>
+
+      <!-- Boutons -->
+      <div class="button-container">
+        <button class="submit-button" @click="submitForm">Soumettre</button>
+        <button class="return-button" @click="onBack">Retour</button>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
 export default {
+  props: {
+    isAlive: {
+      type: Boolean,
+      required: true
+    },
+    demandeur: {
+      type: Object,
+      required: true
+    }
+  },
   data() {
     return {
-      name: this.$route.params.demandeur.name,  // Récupérer le nom et prénom
-      adresse: "",
-      reason: "",
+      beneficiaire: {
+        nom: "",
+        adresse: "",
+        motif: "" // Champ spécifique pour "Personne vivante"
+      }
     };
   },
   methods: {
-    async onSubmit() {
-      if (!this.name || !this.adresse || !this.reason) {
-        alert("Tous les champs sont obligatoires.");
-        return;
-      }
-
-      // Logique pour envoyer les données via une API
-      alert("Demande envoyée !");
-    },
-    openWhatsAppGroup() {
-      const groupLink = "https://chat.whatsapp.com/votre_code_d_invitation";
-      window.open(groupLink, "_blank");
+    submitForm() {
+      // Logique pour soumettre la demande complète
+      const completeData = {
+        demandeur: this.demandeur,
+        beneficiaire: this.beneficiaire,
+        isAlive: this.isAlive
+      };
+      console.log("Formulaire soumis :", completeData);
+      alert("Demande soumise avec succès !");
+      this.$router.push("/accueil");
     },
     onBack() {
-      this.$router.go(-1);  // Retour à la page précédente
-    },
-  },
+      this.$router.go(-1);
+    }
+  }
 };
 </script>
 
 <style scoped>
-.formulaire-page {
+/* Styles de la page */
+.formulaire-priere-suite-page {
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding: 20px;
 }
 
 .header {
@@ -80,7 +115,7 @@ export default {
 .logo {
   position: absolute;
   top: 20%;
-  left: 50%;
+  left: 10%;
   transform: translate(-50%, -50%);
   height: 70px;
   width: 140px;
@@ -89,40 +124,62 @@ export default {
 .title {
   font-size: 24px;
   font-weight: bold;
-  margin: 20px 0;
+  margin-bottom: 20px;
+}
+
+.section-title {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 20px;
 }
 
 .form-container {
   width: 100%;
   max-width: 400px;
-  padding: 20px;
   display: flex;
   flex-direction: column;
-  gap: 15px;
 }
 
-.form-label {
-  font-weight: bold;
+.label {
+  font-size: 16px;
+  margin-bottom: 5px;
 }
 
-.form-input,
-.form-textarea {
-  width: 100%;
+.input,
+.textarea {
+  margin-bottom: 15px;
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
-  font-size: 16px;
+  width: 100%;
 }
 
-.form-textarea {
+.textarea {
+  height: 80px;
   resize: none;
-  height: 100px;
 }
 
-.form-button,
-.whatsapp-button,
+.button-container {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.submit-button {
+  padding: 10px 20px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.submit-button:hover {
+  background-color: #218838;
+}
+
 .return-button {
-  padding: 10px;
+  padding: 10px 20px;
   background-color: #007bff;
   color: white;
   border: none;
@@ -130,17 +187,7 @@ export default {
   cursor: pointer;
 }
 
-.whatsapp-button {
-  background-color: #25d366;
-}
-
-.return-button {
-  background-color: #6c757d;
-}
-
-.form-button:hover,
-.whatsapp-button:hover,
 .return-button:hover {
-  opacity: 0.8;
+  background-color: #0056b3;
 }
 </style>

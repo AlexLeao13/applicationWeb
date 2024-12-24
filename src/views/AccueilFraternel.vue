@@ -28,7 +28,7 @@
           Accueil Fraternel en Présentiel
         </button>
 
-        <button class="btn-option" @click="goToZoomPage">
+        <button class="btn-option" @click="goToGroupePriere">
           Groupe de Prière (je veux participer)
         </button>
 
@@ -58,6 +58,9 @@ export default {
     const goToAccueilFraternel = () => {
       router.push({ name: "FormAccueilFraternel" });
     };
+    const goToGroupePriere = () => {
+  router.push({ name: "FormGroupePriere" });
+    };
 
     const goToZoomPage = () => {
       router.push("/PageZoom");
@@ -65,7 +68,7 @@ export default {
 
     const goToDemandePriere = () => {
       router.push({
-        name: "FormulaireDemandePriereSuite",
+        name: "FormDemandePriere",
         params: {
           activity: "Demande de prière/vibration"
         }
@@ -76,7 +79,8 @@ export default {
       goToAssistanceSpirituelle,
       goToAccueilFraternel,
       goToZoomPage,
-      goToDemandePriere
+      goToDemandePriere,
+      goToGroupePriere
     };
   }
 };
@@ -105,7 +109,7 @@ export default {
 .logo {
   position: absolute;
   top: 20%;
-  left: 15%;
+  left: 10%;
   transform: translate(-50%, -50%);
   height: 70px;
   width: 140px;
