@@ -12,6 +12,9 @@
 
     <div class="content">
       <!-- Titre de la page -->
+      <router-link :to="'/' + $t('pt') + '/home'"
+        >{{ $t("Português") }}
+      </router-link>
 
       <h1 class="title">{{ $t("Bienvenue dans notre application !") }}</h1>
       <!-- Bouton pour s'inscrire -->
@@ -32,6 +35,13 @@ import { ref, onMounted } from "vue";
 import { useRouter } from "vue-router";
 
 export default {
+  watch: {
+    $route(to, from) {
+      // Reload the page when the route changes
+      window.location.reload();
+      //this.$i18n.global.locale = "pt";
+    }
+  },
   setup() {
     const router = useRouter();
     const userToken = ref(null);
@@ -54,9 +64,14 @@ export default {
       router.push({ name: "Signin" });
     };
 
+    const setLanguage = (lang) => {
+      i18n.global.locale = lang;
+    };
+
     return {
       goToCreateAccount,
-      goToSignin
+      goToSignin,
+      setLanguage
     };
   }
 };

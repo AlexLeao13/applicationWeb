@@ -12,6 +12,7 @@
       >GroupesEtudes</router-link
     >
     <router-link class="menu-button" to="dons">Dons</router-link>
+    <router-link :to="'/' + $t('pt')">{{ $t("Português") }}</router-link>
   </div>
 </template>
 <style scoped>

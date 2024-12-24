@@ -21,6 +21,12 @@ const routes = [
     beforeEnter: validateLang
   },
   {
+    path: "/:lang/home",
+    name: "Home2",
+    component: () => import("../views/Home.vue"),
+    beforeEnter: validateLang
+  },
+  {
     path: "/:lang/signin",
     name: "Signin",
     component: () => import("../views/Signin.vue"),
