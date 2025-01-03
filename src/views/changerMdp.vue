@@ -54,13 +54,12 @@
 </template>
 
 <script>
-import axios from "axios";
+import api from "@/services/api.js"; // Importe l'instance Axios
 
 export default {
   name: "ChangerMdp",
   data() {
     return {
-      apiUri: "https://api.cesf.ca", // Change cette URL si nécessaire
       token: "", // Ton token JWT ou autre moyen d'authentification
       ancienMotDePasse: "",
       nouveauMotDePasse: "",
@@ -75,16 +74,15 @@ export default {
       }
 
       try {
-        const response = await axios.put(
-          `${this.apiUri}/change-password`,
+        const response = await api.put(
+          "/change-password",
           {
             ancienMotDePasse: this.ancienMotDePasse,
             nouveauMotDePasse: this.nouveauMotDePasse
           },
           {
             headers: {
-              Authorization: `Bearer ${this.token}`,
-              "Content-Type": "application/json"
+              Authorization: `Bearer ${this.token}`
             }
           }
         );

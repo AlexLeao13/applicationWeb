@@ -1,57 +1,41 @@
 <template>
-  <div class="create-account-page">
-    <!-- Conteneur avec une image d'arrière-plan et un logo -->
+  <div class="create-account">
     <div class="header">
-      <img
-        class="background-image"
-        src="@/assets/images/imageArriere.png"
-        alt="Background"
-      />
+      <img class="image-background" src="@/assets/images/imageArriere.png" alt="Arrière-plan" />
       <img class="logo" src="@/assets/images/logo.png" alt="Logo" />
     </div>
 
     <div class="form-container">
-      <!-- Titre "Créer un compte" -->
       <h1 class="title">Créer un compte</h1>
 
-      <!-- Champs de saisie -->
-      <input type="text" placeholder="Prénom" class="input" v-model="prenom" />
-      <input type="text" placeholder="Nom" class="input" v-model="nom" />
-      <input
-        type="email"
-        placeholder="Courriel"
-        class="input"
-        v-model="courriel"
-      />
-      <input
-        type="password"
-        placeholder="Mot de passe"
-        class="input"
-        v-model="password"
-      />
-      <input
-        type="password"
-        placeholder="Confirmer mot de passe"
-        class="input"
-        v-model="confirmPassword"
-      />
+      <label for="prenom" class="label">Prénom</label>
+      <input type="text" id="prenom" class="input" v-model="prenom" placeholder="Entrez votre prénom" />
 
-      <!-- Affichage d'erreur si nécessaire -->
+      <label for="nom" class="label">Nom</label>
+      <input type="text" id="nom" class="input" v-model="nom" placeholder="Entrez votre nom" />
+
+      <label for="courriel" class="label">Courriel</label>
+      <input type="email" id="courriel" class="input" v-model="courriel" placeholder="Entrez votre courriel" />
+
+      <label for="password" class="label">Mot de passe</label>
+      <input type="password" id="password" class="input" v-model="password" placeholder="Entrez un mot de passe" />
+
+      <label for="confirmPassword" class="label">Confirmer le mot de passe</label>
+      <input type="password" id="confirmPassword" class="input" v-model="confirmPassword" placeholder="Confirmez votre mot de passe" />
+
+      <button @click="signUp" class="btn-ok">S'inscrire</button>
+      <button @click="goBack" class="return-button">Retour</button>
+
       <p v-if="error" class="error-message">{{ error }}</p>
-
-      <!-- Bouton d'inscription -->
-      <button class="btn-ok" @click="signUp">S'inscrire</button>
-
-      <!-- Bouton retour -->
-      <button class="return-button" @click="goBack">Retour</button>
     </div>
   </div>
 </template>
 
 <script>
-import axios from "axios";
+import api from "@/services/api.js"; // Importer l'instance Axios centralisée
 
 export default {
+  name: "CreateAccount",
   data() {
     return {
       prenom: "",
@@ -59,7 +43,7 @@ export default {
       courriel: "",
       password: "",
       confirmPassword: "",
-      error: null // Message d'erreur
+      error: ""
     };
   },
   methods: {
@@ -70,7 +54,7 @@ export default {
       }
 
       try {
-        const response = await axios.post("https://api.cesf.ca/register", {
+        const response = await api.post("/register", {
           prenom: this.prenom,
           nom: this.nom,
           courriel: this.courriel,
@@ -78,29 +62,29 @@ export default {
         });
 
         if (response.status === 201) {
-          this.$router.push({ name: "Signin" });
-        } else {
-          this.error = "Erreur lors de l'inscription. Veuillez réessayer.";
+          alert("Compte créé avec succès !");
+          this.$router.push("/signin"); // Redirige vers la page de connexion
         }
       } catch (error) {
-        console.error(error);
-        this.error = "Une erreur s'est produite. Veuillez réessayer.";
+        console.error("Erreur :", error);
+        this.error = "Erreur lors de la création du compte.";
       }
     },
+
     goBack() {
-      this.$router.go(-1);
+      this.$router.go(-1); // Retour à la page précédente
     }
   }
 };
 </script>
 
 <style scoped>
-/* Styles adaptés pour le formulaire */
-.create-account-page {
+.create-account {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  background-color: #f9f9f9;
+  min-height: 100vh;
 }
 
 .header {
@@ -109,7 +93,7 @@ export default {
   height: 200px;
 }
 
-.background-image {
+.image-background {
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -117,31 +101,42 @@ export default {
 
 .logo {
   position: absolute;
-  top: 20%;
-  left: 15%;
+  top: 50%;
+  left: 50%;
   transform: translate(-50%, -50%);
   height: 70px;
   width: 140px;
 }
 
 .form-container {
-  margin-top: 20px;
-  width: 100%;
   max-width: 400px;
-  text-align: center;
+  width: 100%;
+  background-color: white;
+  padding: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  margin-top: -50px;
 }
 
 .title {
-  font-size: 24px;
+  font-size: 20px;
+  font-weight: bold;
   margin-bottom: 20px;
+  text-align: center;
+}
+
+.label {
+  font-size: 14px;
+  margin-bottom: 5px;
+  color: #555;
 }
 
 .input {
   width: 100%;
   padding: 10px;
   margin-bottom: 15px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
 }
 
 .btn-ok {
@@ -150,8 +145,14 @@ export default {
   background-color: #007bff;
   color: white;
   border: none;
-  border-radius: 5px;
+  border-radius: 4px;
+  font-size: 16px;
   cursor: pointer;
+  margin-bottom: 10px;
+}
+
+.btn-ok:hover {
+  background-color: #0056b3;
 }
 
 .return-button {
@@ -160,13 +161,18 @@ export default {
   background-color: #6c757d;
   color: white;
   border: none;
-  border-radius: 5px;
+  border-radius: 4px;
+  font-size: 16px;
   cursor: pointer;
-  margin-top: 10px;
+}
+
+.return-button:hover {
+  background-color: #495057;
 }
 
 .error-message {
   color: red;
   margin-top: 10px;
+  text-align: center;
 }
 </style>

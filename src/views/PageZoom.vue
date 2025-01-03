@@ -56,7 +56,7 @@ export default {
   props: {
     apiUri: {
       type: String,
-      default: "https://api.cesf.ca" // Valeur par défaut
+      default: "https://app.cesf.ca" // Mettre à jour l'URL ici
     },
     activity: {
       type: Object,
@@ -68,23 +68,12 @@ export default {
       })
     }
   },
-  data() {
-    return {
-      token: localStorage.getItem("userToken") || "",
-      schedules: [] // Liste des horaires
-    };
-  },
-  mounted() {
-    if (this.activity.id) {
-      this.getSchedules(this.activity.id);
-    } else {
-      console.warn("ID de l'activité manquant !");
-    }
-  },
-  methods: {
+// ...
+
+methods: {
     getSchedules(activity_id) {
       axios
-        .get(`${this.apiUri}/activity-schedules?activity_id=${activity_id}`, {
+        .get(`${this.apiUri}/activity-schedules?activity_id=${activity_id}`, { // Utiliser la nouvelle URL
           headers: {
             Authorization: `Bearer ${this.token}`
           }
@@ -97,6 +86,7 @@ export default {
           alert("Erreur : Impossible de récupérer les horaires.");
         });
     },
+
     openZoom() {
       const groupLink = this.activity.lien_zoom || "https://zoom.us";
       window.open(groupLink, "_blank"); // Ouvre le lien Zoom dans un nouvel onglet

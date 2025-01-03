@@ -68,31 +68,12 @@ export default {
     },
     async signin() {
       try {
-        let data = JSON.stringify({
+        const data = {
           courriel: this.courriel,
           password: this.password
-        });
-
-        let config = {
-          method: "post",
-          maxBodyLength: Infinity,
-          url: "https://api.cesf.ca/login",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          data: data
         };
 
-        const response = await axios
-          .request(config)
-          .then((response) => {
-            console.log(JSON.stringify(response.data));
-            return response;
-          })
-          .catch((error) => {
-            console.log(error);
-            return error;
-          });
+        const response = await axios.post("/login", data); // Utilise l'instance Axios configurée
 
         if (response.data && response.data.token) {
           // Stockage du token et redirection
@@ -134,7 +115,7 @@ export default {
 .logo {
   position: absolute;
   top: 20%;
-  left: 10%;
+  left: 50%;
   transform: translate(-50%, -50%);
   height: 70px;
   width: 140px;
