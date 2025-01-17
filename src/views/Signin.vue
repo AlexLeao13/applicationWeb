@@ -17,7 +17,8 @@
       <!-- Champ courriel -->
       <input
         type="email"
-        placeholder="Courriel"
+        id="courriel"
+        placeholder="Entrez votre Courriel"
         class="input"
         v-model="courriel"
       />
@@ -25,7 +26,8 @@
       <!-- Champ Mot de passe -->
       <input
         type="password"
-        placeholder="Mot de passe"
+        id="password"
+        placeholder="Entrez votre mot de passe"
         class="input"
         v-model="password"
       />
@@ -35,6 +37,9 @@
         Mot de passe oublié?
       </a>
 
+      <!-- Bouton pour tester les champs -->
+      <button @click="testFields">Tester les Champs</button>
+      
       <!-- Bouton Login -->
       <button class="btn-ok" @click="signin">Login</button>
 
@@ -51,44 +56,58 @@
 import axios from "@/services/api"; // Utilisation de l'instance Axios configurée
 
 export default {
+  name: "Signin",
   data() {
     return {
-      courriel: "",
-      password: "",
-      error: null // Message d'erreur pour l'utilisateur
+      courriel: "", // Champ pour le courriel de l'utilisateur
+      password: "", // Champ pour le mot de passe
+      error: null   // Message d'erreur pour afficher les problèmes
     };
   },
   methods: {
-    goBack() {
-      this.$router.go(-1); // Redirection ou logique de retour
+    // Méthode pour tester les champs de formulaire
+    testFields() {
+      console.log("Courriel :", this.courriel);ß
+      console.log("Mot de passe :", this.password);
     },
+    // Méthode pour revenir en arrière
+    goBack() {
+      this.$router.go(-1); // Retour à la page précédente
+    },
+    // Méthode pour rediriger vers la page "Mot de passe oublié"
     goToMotDePassOublier() {
-      // Navigation vers la page "Mot de passe oublié"
       this.$router.push({ name: "MotDePassOublier" });
     },
+    // Méthode pour gérer la connexion
     async signin() {
       try {
+        console.log("Données envoyées via Axios :", {
+            courriel: this.courriel,
+            password: this.password
+        });  
+
         const data = {
           courriel: this.courriel,
           password: this.password
         };
 
-        const response = await axios.post("/login", data); // Utilise l'instance Axios configurée
+        const response = await axios.post("/login", data); // Requête POST au backend
 
         if (response.data && response.data.token) {
           // Stockage du token et redirection
           localStorage.setItem("userToken", response.data.token);
-          this.$router.push({ name: "Accueil" }); // Redirection vers la page d'accueil
+          this.$router.push({ name: "Accueil" }); // Redirection vers l'accueil
         } else {
           this.error = "Courriel ou mot de passe incorrect.";
         }
       } catch (error) {
-        console.error(error);
+        console.error("Erreur :", error);
         this.error = "Une erreur s'est produite. Veuillez réessayer.";
       }
     }
   }
 };
+
 </script>
 
 <style scoped>
@@ -115,11 +134,12 @@ export default {
 .logo {
   position: absolute;
   top: 20%;
-  left: 50%;
+  left: 10%;
   transform: translate(-50%, -50%);
   height: 70px;
   width: 140px;
 }
+  
 
 .form-container {
   margin-top: 20px;

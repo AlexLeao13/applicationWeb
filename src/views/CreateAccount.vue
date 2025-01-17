@@ -16,6 +16,11 @@
 
       <label for="courriel" class="label">Courriel</label>
       <input type="email" id="courriel" class="input" v-model="courriel" placeholder="Entrez votre courriel" />
+      
+      <label for="telephone" class="label">Téléphone</label>
+      <input type="text" id="Téléphone" class="input" v-model="telephone" placeholder="téléphone" />
+
+
 
       <label for="password" class="label">Mot de passe</label>
       <input type="password" id="password" class="input" v-model="password" placeholder="Entrez un mot de passe" />
@@ -43,33 +48,44 @@ export default {
       courriel: "",
       password: "",
       confirmPassword: "",
-      error: ""
+      telephone: "", // Nouveau champ
+      role: "user", // Valeur par défaut
+      error: null // Message d'erreur pour l'utilisateur
     };
   },
   methods: {
     async signUp() {
-      if (this.password !== this.confirmPassword) {
-        this.error = "Les mots de passe ne correspondent pas.";
-        return;
-      }
+  // Validation des champs
+  if (!this.prenom || !this.nom || !this.courriel || !this.password || !this.telephone) {
+    this.error = "Tous les champs sont obligatoires.";
+    return;
+  }
 
-      try {
-        const response = await api.post("/register", {
-          prenom: this.prenom,
-          nom: this.nom,
-          courriel: this.courriel,
-          password: this.password
-        });
+  if (this.password !== this.confirmPassword) {
+    this.error = "Les mots de passe ne correspondent pas.";
+    return;
+  }
 
-        if (response.status === 201) {
-          alert("Compte créé avec succès !");
-          this.$router.push("/signin"); // Redirige vers la page de connexion
-        }
-      } catch (error) {
-        console.error("Erreur :", error);
-        this.error = "Erreur lors de la création du compte.";
-      }
-    },
+  try {
+    const response = await api.post("/register", {
+      prenom: this.prenom,
+      nom: this.nom,
+      courriel: this.courriel,
+      password: this.password,
+      telephone: this.telephone,
+      role: "user"
+    });
+
+    if (response.status === 201) {
+      alert("Compte créé avec succès !");
+      this.$router.push("/signin");
+    }
+  } catch (error) {
+    console.error("Erreur :", error);
+    this.error = "Erreur lors de la création du compte.";
+  }
+},
+
 
     goBack() {
       this.$router.go(-1); // Retour à la page précédente
@@ -77,6 +93,7 @@ export default {
   }
 };
 </script>
+
 
 <style scoped>
 .create-account {
