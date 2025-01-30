@@ -1,19 +1,13 @@
 import axios from "axios";
 
-// Crée une instance Axios
-axios.defaults.headers.common["Content-Type"] =
-  "application/x-www-form-urlencoded";
-axios.defaults.headers.common["Access-Control-Allow-Origin"] = "*";
 const api = axios.create({
-  //baseURL: "https://app.cesf.ca", // URL du backend en production. Decommenter pour la production
-  baseURL: "http://localhost:3000", // URL du backend local. Commenter pour la production
-
-  timeout: 5000 // Timeout de 5 secondes pour les requêtes
+  baseURL: import.meta.env.VITE_API_URL, // Vite uses `import.meta.env` instead of `process.env`
+  timeout: 5000, // Timeout de 5 secondes pour les requêtes
 });
 
 // Middleware pour ajouter le token JWT dans les en-têtes des requêtes si disponible
 api.interceptors.request.use((config) => {
-  const token = localStorage.getItem("token"); // Vérifie si un token est stocké
+  const token = localStorage.getItem("token");
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
   }
