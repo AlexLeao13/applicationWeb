@@ -38,8 +38,8 @@
       </a>
 
       <!-- Bouton pour tester les champs -->
-      <button @click="testFields">Tester les Champs</button>
-      
+      <!-- <button @click="testFields">Tester les Champs</button> -->
+
       <!-- Bouton Login -->
       <button class="btn-ok" @click="signin">Login</button>
 
@@ -61,13 +61,14 @@ export default {
     return {
       courriel: "", // Champ pour le courriel de l'utilisateur
       password: "", // Champ pour le mot de passe
-      error: null   // Message d'erreur pour afficher les problèmes
+      error: null // Message d'erreur pour afficher les problèmes
     };
   },
   methods: {
     // Méthode pour tester les champs de formulaire
     testFields() {
-      console.log("Courriel :", this.courriel);ß
+      console.log("Courriel :", this.courriel);
+      ß;
       console.log("Mot de passe :", this.password);
     },
     // Méthode pour revenir en arrière
@@ -82,16 +83,16 @@ export default {
     async signin() {
       try {
         console.log("Données envoyées via Axios :", {
-            courriel: this.courriel,
-            password: this.password
-        });  
+          courriel: this.courriel,
+          password: this.password
+        });
 
         const data = {
           courriel: this.courriel,
           password: this.password
         };
 
-        const response = await axios.post("/login", data); // Requête POST au backend
+        const response = await axios.post("https://api.cesf.ca/login", data); // Requête POST au backend
 
         if (response.data && response.data.token) {
           // Stockage du token et redirection
@@ -107,7 +108,6 @@ export default {
     }
   }
 };
-
 </script>
 
 <style scoped>
@@ -139,7 +139,6 @@ export default {
   height: 70px;
   width: 140px;
 }
-  
 
 .form-container {
   margin-top: 20px;
